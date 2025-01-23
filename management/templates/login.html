@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <form method="post">
+        <div class="logo-container">
+          <img src="{% static 'img/logo_sena.png' %}" alt="" />
+        </div>
+        <h2>Inicio de Sesión</h2>
+        {% csrf_token %}
+        <div class="form-errors">
+          {% if form.non_field_errors %}
+            <div class="form-error">
+              {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        <div class="form-field">
+          {{ form.username.label_tag }} {{ form.username }}
+          {% if form.username.errors %}
+            <div class="form-error">
+              {% for error in form.username.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        <div class="form-field">
+          {{ form.password.label_tag }}
+          <div class="password-field">
+            {{ form.password }}
+            <button
+              type="button"
+              class="toggle-password"
+              onclick="togglePasswordVisibility()"
+            >
+              &#128064;
+            </button>
+          </div>
+          {% if form.password.errors %}
+            <div class="form-error">
+              {% for error in form.password.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        <div>
+          <button type="submit" name="login">Ingresar</button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      function togglePasswordVisibility() {
+        const passwordField = document.querySelector('input[name="password"]');
+        const toggleButton = document.querySelector(".toggle-password");
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          toggleButton.textContent = "🙈";
+        } else {
+          passwordField.type = "password";
+          toggleButton.textContent = "\u{1F440}";
+        }
+      }
+    </script>
+  </body>
+</html>

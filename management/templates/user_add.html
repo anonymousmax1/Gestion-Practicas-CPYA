@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block content %}
+<main class="user-add-main">
+  <div class="main-top">
+    <h1>Crear Usuario</h1>
+  </div>
+
+  <form method="post">
+    <div class="form-body">
+      {% csrf_token %}
+      {% for field in form %}
+      <div class="form-field">
+        {{ field.label_tag }}
+        {{ field }}
+      </div>
+      {% if field.errors %}
+      <div class="form-error">
+        {{ field.errors }}
+      </div>
+      {% endif %}
+      {% endfor %}
+      <div>
+        <button type="submit">Guardar</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="form-actions">
+    <a class="btn btn-primary" href="{% url 'user_list' %}">Volver a la lista de usuarios</a>
+  </div>
+</main>
+{% endblock %}

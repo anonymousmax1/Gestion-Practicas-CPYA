@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block content %}
+<main class="show-users-main">
+  <div class="main-top">
+    <h1>Usuarios</h1>
+  </div>
+
+  {% if "Administrador" in user_groups %}
+  <div class="form-actions">
+    <a class="btn btn-primary" href="{% url 'user_create' %}"
+      >Agregar nuevo usuario</a
+    >
+  </div>
+  {% endif %}
+
+  <section>
+    <h2>Instructores ({{ instructors_count }})</h2>
+    {% if instructors %}
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Aprendices a cargo</th>
+          <th>Ver</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for instructor in instructors %}
+        <tr>
+          <td>{{ instructor.first_name }} {{ instructor.last_name }}</td>
+          <td>{{ instructor.email }}</td>
+          <td>{{ instructor.students.count }}</td>
+          <td>
+            <a href="{% url 'profile' instructor.id %}">Ver</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No hay instructores registrados.</p>
+    {% endif %}
+  </section>
+
+  <section>
+    <h2>Administradores ({{ administrators_count }})</h2>
+    {% if administrators %}
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Ver</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for admin in administrators %}
+        <tr>
+          <td>{{ admin.first_name }} {{ admin.last_name }}</td>
+          <td>{{ admin.email }}</td>
+          <td>
+            <a href="{% url 'profile' admin.id %}">Ver</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No hay administradores registrados.</p>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}

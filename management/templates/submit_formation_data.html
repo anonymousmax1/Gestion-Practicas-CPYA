@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block content %}
+<main class="submit-formation-main">
+  <div class="main-top">
+    <h1>Confirmar y Guardar Datos de Formación</h1>
+  </div>
+
+  <div class="description-card">
+    <h3>Datos de la Formación</h3>
+    <div class="formation-info">
+      <p><strong>Código de Formación:</strong> {{ data.formation_code }}</p>
+      <p><strong>Nombre de Formación:</strong> {{ data.formation_name }}</p>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Tipo Documento</th>
+        <th>Número Documento</th>
+        <th>Nombre</th>
+        <th>Celular</th>
+        <th>Correo Electrónico</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in data.students %}
+      <tr>
+        <td>{{ student.document_type }}</td>
+        <td>{{ student.document_number }}</td>
+        <td>{{ student.name }} {{ student.last_name }}</td>
+        <td>{{ student.cellphone }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.state }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <form method="post">
+    <div class="form-body">
+      {% csrf_token %} {% for field in submit_form %}
+      <div class="form-field">{{ field.label_tag }} {{ field }}</div>
+      {% if field.errors %}
+      <div class="form-error">{{ field.errors }}</div>
+      {% endif %} {% endfor %}
+      <div class="form-actions">
+        <button type="submit" name="submit_data" class="btn btn-primary">
+          Guardar Formación
+        </button>
+        <a href="{% url 'load_formation' %}">Cancelar</a>
+      </div>
+    </div>
+  </form>
+</main>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block content %}
+<main>
+  <div class="main-top">
+    <h1>Cargar Archivo de Formación</h1>
+  </div>
+
+  <form method="post" enctype="multipart/form-data" class="load-file-form">
+    <div class="form-body">
+      {% csrf_token %} {% for field in form %}
+      <div class="form-field">{{ field.label_tag }} {{ field }}</div>
+      {% if field.errors %}
+      <div class="form-error">{{ field.errors }}</div>
+      {% endif %} {% endfor %}
+      <div class="form-actions">
+        <button type="submit" name="upload_file">Subir Archivo</button>
+        <a href="{% url 'load_formation' %}">Cancelar</a>
+      </div>
+    </div>
+  </form>
+</main>
+{% endblock %}

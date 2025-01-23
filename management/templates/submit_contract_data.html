@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block content %}
+<main class="submit-contract-main">
+  <div class="main-top">
+    <h1>Confirmar y Guardar Datos del Contrato</h1>
+  </div>
+
+  <div class="description-card">
+    <h3>Datos del Contrato</h3>
+    <div class="contract-info">
+      <p><strong>Código de Formación:</strong> {{ data.formation_code }}</p>
+      <p><strong>Nombre de Formación:</strong> {{ data.formation_name }}</p>
+      <p><strong>Nombre del Estudiante:</strong> {{ data.student_name }}</p>
+      <p>
+        <strong>Tipo de Documento:</strong> {{ data.student_document_type }}
+      </p>
+      <p>
+        <strong>Número de Documento:</strong> {{ data.student_document_number }}
+      </p>
+      <p><strong>Dirección:</strong> {{ data.student_address }}</p>
+      <p><strong>Ciudad:</strong> {{ data.student_city }}</p>
+      <p><strong>Teléfono:</strong> {{ data.student_cellphone }}</p>
+      <p><strong>Correo Electrónico:</strong> {{ data.email_sena }}</p>
+      <p><strong>Nombre de la Empresa:</strong> {{ data.enterprise_name }}</p>
+      <p>
+        <strong>Dirección de la Empresa:</strong> {{ data.enterprise_address }}
+      </p>
+      <p><strong>Ciudad de la Empresa:</strong> {{ data.enterprise_city }}</p>
+      <p>
+        <strong>Teléfono de la Empresa:</strong> {{ data.enterprise_phone }}
+      </p>
+      <p>
+        <strong>Correo Electrónico de la Empresa:</strong>
+        {{ data.enterprise_email }}
+      </p>
+      <p><strong>Jefe Inmediato:</strong> {{ data.boss_name }}</p>
+      <p>
+        <strong>Fecha de Inicio de Prácticas:</strong>
+        {{ data.practices_start_date }}
+      </p>
+      <p>
+        <strong>Fecha de Fin de Prácticas:</strong>
+        {{ data.practices_end_date}}
+      </p>
+    </div>
+  </div>
+
+  <form method="post">
+    <div class="form-body">
+      {% csrf_token %} {% for field in submit_form %}
+      <div class="form-field">{{ field.label_tag }} {{ field }}</div>
+      {% if field.errors %}
+      <div class="form-error">{{ field.errors }}</div>
+      {% endif %} {% endfor %}
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Guardar Información contractual</button>
+        <a href="{% url 'load_contract_file' %}">Cancelar</a>
+      </div>
+    </div>
+  </form>
+</main>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "base.html" %} {% block content %}
+<main class="show-students-main">
+  <div class="main-top">
+    <h1>Lista de Aprendices</h1>
+  </div>
+
+  <section id="filter-section">
+    <form method="GET" class="filter-form">
+      <div class="form-title">
+        <p>Filtrar por:</p>
+      </div>
+      <div class="form-body">
+        {% csrf_token %} {% for field in form %}
+        <div class="form-field">{{ field.label_tag }} {{ field }}</div>
+        {% if field.errors %}
+        <div class="form-error">{{ field.errors }}</div>
+        {% endif %} {% endfor %}
+        <div class="form-actions">
+          <button type="submit">Filtrar</button>
+          <a href="{% url 'student_list' %}">Limpiar filtros</a>
+        </div>
+      </div>
+    </form>
+
+    <hr />
+
+    <div id="filter-stats">
+      {% if "Administrador" in user_groups%}
+      <div class="form-actions">
+        <a class="btn btn-primary" href="{% url 'student_create' %}"
+          >Agregar Aprendiz</a
+        >
+      </div>
+      {% endif %}
+      <div>
+        <p>Total de estudiantes: {{ student_count }}</p>
+        <p>Total de formaciones: {{ formation_count }}</p>
+      </div>
+    </div>
+  </section>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Documento</th>
+        <th>Formación</th>
+        <th>Estado</th>
+        <th>Ver</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in students %}
+      <tr>
+        <td>{{ student.name }} {{ student.last_name }}</td>
+        <td>{{ student.document }}</td>
+        <td>{{ student.formation.code }} {{ student.formation.name }}</td>
+        <td class="state-column state-{{ student.state }}">
+          <p>{{ student.state_display }}</p>
+        </td>
+        <td class="link-column">
+          <a href="{% url 'student_detail' student.id %}">Ver</a>
+        </td>
+      </tr>
+
+      {% empty %}
+      <tr>
+        <td colspan="5">No se encontraron estudiantes.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    {% if is_paginated %} {% if page_obj.has_previous %}
+    <a
+      href="?page={{ page_obj.previous_page_number }}&formation={{ form.cleaned_data.formation }}&state={{ form.cleaned_data.state }}&search={{ form.cleaned_data.search }}"
+      >Anterior</a
+    >
+    {% endif %}
+
+    <span
+      >Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span
+    >
+
+    {% if page_obj.has_next %}
+    <a
+      href="?page={{ page_obj.next_page_number }}&formation={{ form.cleaned_data.formation }}&state={{ form.cleaned_data.state }}&search={{ form.cleaned_data.search }}"
+      >Siguiente</a
+    >
+    {% endif %} {% endif %}
+  </div>
+</main>
+{% endblock %}

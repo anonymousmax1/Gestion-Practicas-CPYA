@@ -1,0 +1,159 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+<main class="dashboard-main">
+  <div class="main-top">
+    <h1>Dashboard</h1>
+  </div>
+
+  <div class="dashboard-cards">
+    <div class="card">
+      <h2>Total de Aprendices</h2>
+      <p>{{ total_students }}</p>
+    </div>
+    <div class="card">
+      <h2>Total de Formaciones</h2>
+      <p>{{ total_formations }}</p>
+    </div>
+    <div class="card">
+      <h2>Aprendices en Seguimiento</h2>
+      <p>{{ students_in_tracking }}</p>
+    </div>
+    <div class="card">
+      <h2>Aprendices sin Seguimiento</h2>
+      <p>{{ students_no_tracking }}</p>
+    </div>
+    <div class="card">
+      <h2>Aprendices Evaluados</h2>
+      <p>{{ students_evaluated }}</p>
+    </div>
+    <div class="card">
+      <h2>Aprendices Cancelados</h2>
+      <p>{{ students_canceled }}</p>
+    </div>
+  </div>
+
+  <div class="charts">
+    <div class="chart">
+      <h2>Distribución de Aprendices por Estado</h2>
+      <canvas id="studentsByStateChart"></canvas>
+    </div>
+    <div class="chart">
+      <h2>Instructores y su Cantidad de Aprendices</h2>
+      <canvas id="instructorsChart"></canvas>
+    </div>
+    <div class="chart">
+      <h2>Aprendices por Estado en Cada Formación</h2>
+      <canvas id="studentsByFormationChart"></canvas>
+    </div>
+  </div>
+</main>
+
+<script src="{% static 'chart.js' %}"></script>
+<script>
+  const studentsByStateCtx = document.getElementById('studentsByStateChart').getContext('2d');
+  const studentsByStateChart = new Chart(studentsByStateCtx, {
+    type: 'pie',
+    data: {
+      labels: {{ students_by_state_labels|safe }},
+      datasets: [{
+        data: {{ students_by_state_counts|safe }},
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Distribución de Aprendices por Estado'
+        }
+      }
+    }
+  });
+
+  const studentsByFormationCtx = document.getElementById('studentsByFormationChart').getContext('2d');
+  const studentsByFormationChart = new Chart(studentsByFormationCtx, {
+    type: 'bar',
+    data: {
+      labels: {{ formation_labels|safe }},
+      datasets: [
+        {
+          label: 'En Seguimiento',
+          data: {{ in_tracking_counts|safe }},
+          backgroundColor: '#36A2EB',
+        },
+        {
+          label: 'Sin Seguimiento',
+          data: {{ no_tracking_counts|safe }},
+          backgroundColor: '#FFCE56',
+        },
+        {
+          label: 'Evaluados',
+          data: {{ evaluated_counts|safe }},
+          backgroundColor: '#4BC0C0',
+        },
+        {
+          label: 'Cancelados',
+          data: {{ canceled_counts|safe }},
+          backgroundColor: '#FF6384',
+        },
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Aprendices por Estado en Cada Formación'
+        }
+      },
+      scales: {
+        x: {
+          stacked: true,
+        },
+        y: {
+          stacked: true,
+        }
+      }
+    }
+  });
+
+  const instructorsCtx = document.getElementById('instructorsChart').getContext('2d');
+  const instructorsChart = new Chart(instructorsCtx, {
+    type: 'bar',
+    data: {
+      labels: {{ instructor_labels|safe }},
+      datasets: [{
+        label: 'Cantidad de Aprendices',
+        data: {{ instructor_student_counts|safe }},
+        backgroundColor: '#36A2EB',
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false,
+        },
+        title: {
+          display: true,
+          text: 'Instructores y su Cantidad de Aprendices'
+        }
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+        },
+        y: {
+          beginAtZero: true,
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}

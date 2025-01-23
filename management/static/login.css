@@ -1,0 +1,147 @@
+:root {
+  --background-main: #e0e5ec;
+  --blue-main: #28dfff;
+  --red-main: #ff2989;
+  --yellow-main: #ffe929;
+  --gray-main: #547980;
+  --green-main: #29ff90;
+  --main-black: #212121;
+}
+
+html {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  max-height: 100vh;
+  max-width: 100vw;
+  width: 100vw;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  background-color: var(--background-main);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 20px;
+  background: #e0e5ec;
+  box-shadow: 6px 6px 19px #aaaeb3, -6px -6px 19px #ffffff;
+  width: 400px;
+  max-width: 80vw;
+  padding: 2em;
+}
+
+form .form-errors{
+  margin: 0;
+}
+
+form .form-errors p{
+  margin: 0em 1em 1em 1em;
+  color: var(--red-main);
+}
+
+form > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  gap: 1em;
+}
+
+form .password-field {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+}
+
+form .password-field input {
+  width: 90%;
+}
+
+form .password-field button {
+  text-decoration: none;
+  font-size: 20px;
+  color: black;
+  font-size: 16px;
+  text-align: center;
+  outline: none;
+  border: none;
+
+  border-radius: 10px;
+  background: #e0e5ec;
+  box-shadow: 17px 17px 21px #d0d5db, -17px -17px 21px #f0f5fd;
+}
+
+form h2 {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+form input {
+  border: none;
+  border-radius: 10px;
+  background: #e0e5ec;
+  box-shadow: inset 5px 5px 10px #babec4, inset -5px -5px 10px #ffffff;
+  width: 98%;
+  height: 2em;
+  font-size: 16px;
+  padding-inline: 1%;
+}
+
+form > :last-child:has(button) {
+  margin-top: 2em;
+}
+
+form > :last-child > button {
+  display: inline-block;
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  background: #e0e5ec;
+  box-shadow: 5px 5px 10px #babec4, -5px -5px 10px #ffffff;
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  text-align: center;
+  outline: none;
+  border: none;
+  width: 100%;
+}
+
+form button:hover {
+  background: var(--blue-main);
+}
+
+form .logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 6em;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  align-self: center;
+
+  border-radius: 50%;
+  background: linear-gradient(145deg, #f0f5fd, #caced4);
+  box-shadow: 14px 14px 28px #caced4, -14px -14px 28px #f6fcff;
+}
+
+form .logo-container img {
+  border-radius: 50%;
+  width: 80%;
+  height: 80%;
+}

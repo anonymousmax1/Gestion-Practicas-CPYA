@@ -1,0 +1,92 @@
+{% extends "base.html" %} {% block content %}
+<main class="show-formations-main">
+  <div class="main-top">
+    <h1>Lista de Formaciones</h1>
+  </div>
+
+  <section id="filter-section">
+    <form method="GET" class="filter-form">
+      <div class="form-title">
+        <p>Filtrar por:</p>
+      </div>
+      <div class="form-body">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-field">
+          {{ field.label_tag }}
+          {{ field }}
+        </div>
+        {% if field.errors %}
+        <div class="form-error">
+          {{ field.errors }}
+        </div>
+        {% endif %}
+        {% endfor %}
+        <div class="form-actions">
+          <button type="submit">Filtrar</button>
+          <a href="{% url 'formation_list' %}">Limpiar filtros</a>
+        </div>
+      </div>
+    </form>
+
+    <hr/>
+
+    <div id="filter-stats">
+      {% if "Admjinistrador" in user_groups %}
+      <div class="form-actions">
+        <a class="btn btn-primary" href="{% url 'formation_create' %}"
+          >Agregar Formación</a
+        >
+      </div>
+      {% endif %}
+      <div>
+        <p>Total de formaciones: {{ formations_count }}</p>
+      </div>
+    </div>
+  </section>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Fecha de Inicio</th>
+        <th>Fecha de Finalización</th>
+        <th>Ver</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for formation in formations %}
+      <tr>
+        <td>{{ formation.code }}</td>
+        <td>{{ formation.name }}</td>
+        <td>{{ formation.start_date|date:"d/m/Y" }}</td>
+        <td>{{ formation.end_date|date:"d/m/Y" }}</td>
+        <td class="link-column">
+          <a href="{% url 'formation_detail' formation.pk %}">Ver</a>
+        </td>
+      </tr>
+
+      {% empty %}
+      <tr>
+        <td colspan="5">No se encontraron formaciones.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    {% if is_paginated %}
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}&search={{ form.cleaned_data.search }}">Anterior</a>
+    {% endif %}
+
+    <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}&search={{ form.cleaned_data.search }}">Siguiente</a>
+    {% endif %}
+    {% endif %}
+  </div>
+</main>
+{% endblock %}

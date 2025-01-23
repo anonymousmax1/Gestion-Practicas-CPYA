@@ -1,0 +1,262 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-28 01:55-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+#: .\management\forms.py:25 .\management\forms.py:55
+msgid "Groups"
+msgstr "Grupos"
+
+#: .\management\forms.py:26 .\management\forms.py:56
+msgid "Select the groups to which the user belongs."
+msgstr "Selecciona el grupo al que pertenece el usuario."
+
+#: .\management\forms.py:47
+msgid "This email is already in use."
+msgstr "Este correo electrónico ya está en uso."
+
+#: .\management\forms.py:71
+msgid "Este correo electrónico ya está en uso."
+msgstr "Este correo electrónico ya está en uso."
+
+#: .\management\forms.py:77
+msgid "Select the file with the formation data"
+msgstr "Selecciona el archivo con los datos de la formación."
+
+#: .\management\forms.py:92
+msgid "Start date"
+msgstr "Fecha de inicio"
+
+#: .\management\forms.py:99
+msgid "End date"
+msgstr "Fecha de finalización"
+
+#: .\management\forms.py:114
+msgid "The end date cannot be earlier than the start date."
+msgstr "La fecha de finalización no puede ser anterior a la fecha de inicio."
+
+#: .\management\forms.py:149
+msgid "Ninguno"
+msgstr "Ninguno"
+
+#: .\management\forms.py:151 .\management\values.py:15
+msgid "Instructor"
+msgstr "Instructor"
+
+#: .\management\forms.py:160
+msgid "Email"
+msgstr "Correo Electrónico"
+
+#: .\management\forms.py:162
+msgid "Password"
+msgstr "Contraseña"
+
+#: .\management\forms.py:178
+msgid "Formation"
+msgstr "Formación"
+
+#: .\management\forms.py:184
+msgid "State"
+msgstr "Estado"
+
+#: .\management\forms.py:189
+msgid "Name or Document"
+msgstr "Nombre o Documento"
+
+#: .\management\forms.py:190
+msgid "Enter name or document"
+msgstr "Ingrese nombre o documento"
+
+#: .\management\forms.py:201
+msgid "Search"
+msgstr "Buscar"
+
+#: .\management\forms.py:202
+msgid "Enter code or name"
+msgstr "Ingrese la ficha o nombre"
+
+#: .\management\forms.py:276
+msgid ""
+"No se puede asignar un instructor de seguimiento cuando el estado es 'Sin "
+"Contrato', 'Cancelado' o 'Evaluado'."
+msgstr ""
+
+#: .\management\forms.py:324
+msgid "Code"
+msgstr "Ficha"
+
+#: .\management\forms.py:325
+#, fuzzy
+#| msgid "Enter formation's name"
+msgid "Enter the formation code"
+msgstr "Ingrese el nombre de la formación"
+
+#: .\management\forms.py:328
+msgid "Enter 7 digits"
+msgstr "Ingrese 7 dígitos"
+
+#: .\management\forms.py:332
+msgid "Name"
+msgstr "Nombre"
+
+#: .\management\forms.py:333
+#, fuzzy
+#| msgid "Enter formation's name"
+msgid "Enter the formation name"
+msgstr "Ingrese el nombre de la formación"
+
+#: .\management\forms.py:335
+msgid "Enter formation's name"
+msgstr "Ingrese el nombre de la formación"
+
+#: .\management\forms.py:344
+msgid "A formation with this code already exists."
+msgstr "Ya existe una formación con esta ficha."
+
+#: .\management\models.py:83
+msgid "No State"
+msgstr "Sin estado"
+
+#: .\management\utils\validators.py:53
+msgid "Código de formación"
+msgstr "Ficha de la formación"
+
+#: .\management\utils\validators.py:54
+msgid "Nivel de formación"
+msgstr "Nivel de formación"
+
+#: .\management\utils\validators.py:55
+msgid "Nombre de formación"
+msgstr "Nombre de formación"
+
+#: .\management\utils\validators.py:56
+msgid "Nombre del estudiante"
+msgstr "Nombre del aprendiz"
+
+#: .\management\utils\validators.py:57
+msgid "Tipo de documento"
+msgstr "Tipo de documento"
+
+#: .\management\utils\validators.py:58
+msgid "Número de documento"
+msgstr "Número de documento"
+
+#: .\management\utils\validators.py:59
+msgid "Dirección del estudiante"
+msgstr "Dirección del aprendiz"
+
+#: .\management\utils\validators.py:60
+msgid "Nombre de la empresa"
+msgstr "Nombre de la empresa"
+
+#: .\management\utils\validators.py:61
+msgid "Fecha de inicio de prácticas"
+msgstr "Fecha de inicio de prácticas"
+
+#: .\management\utils\validators.py:62
+msgid "Fecha de fin de prácticas"
+msgstr "Fecha de fin de prácticas"
+
+#: .\management\utils\validators.py:63
+msgid "Inicio del ciclo lectivo"
+msgstr "Inicio de la etapa lectiva"
+
+#: .\management\utils\validators.py:64
+msgid "Fin del ciclo lectivo"
+msgstr "Fin de la etapa lectiva"
+
+#: .\management\utils\validators.py:140
+msgid "Ya existe una formación con este número de ficha."
+msgstr "Ya existe una formación con este número de ficha."
+
+#: .\management\values.py:6
+msgid "No Contract"
+msgstr "Sin Contrato"
+
+#: .\management\values.py:7
+msgid "In Tracking"
+msgstr "En Seguimiento"
+
+#: .\management\values.py:8
+msgid "No Tracking"
+msgstr "Sin Seguimiento"
+
+#: .\management\values.py:9
+msgid "Evaluated"
+msgstr "Evaluado"
+
+#: .\management\values.py:10
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#: .\management\values.py:14
+msgid "Administrator"
+msgstr "Administrador"
+
+#: .\management\values.py:19
+msgid "Citizenship Card"
+msgstr "Cédula de Ciudadanía"
+
+#: .\management\values.py:20
+msgid "Identity Card"
+msgstr "Tarjeta de Identidad"
+
+#: .\management\values.py:21
+msgid "Special Permit to Stay"
+msgstr "Permiso Especial de Permanencia"
+
+#: .\management\values.py:25
+msgid "Apprenticeship Contract"
+msgstr "Contrato de Aprendizaje"
+
+#: .\management\values.py:26
+msgid "Internship"
+msgstr "Pasantía"
+
+#: .\management\values.py:27
+msgid "Employment Relationship"
+msgstr "Vínculo Laboral"
+
+#: .\management\values.py:28
+msgid "Productive Project"
+msgstr "Proyecto Productivo"
+
+msgid "Binnacle"
+msgstr "Bitácora"
+
+msgid "Has partial"
+msgstr "Tiene informe parcial"
+
+msgid "Has final"
+msgstr "Tiene informe final"
+
+msgid "Has concertation"
+msgstr "Tiene plan de concertación"
+
+msgid "Document type"
+msgstr "Tipo de documento"
+
+msgid "Document"
+msgstr "Documento"
+
+msgid "Last name"
+msgstr "Apellidos"
+
+msgid "Cellphone"
+msgstr "Número de celular"

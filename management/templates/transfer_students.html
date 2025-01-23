@@ -1,0 +1,117 @@
+{% extends "base.html" %} 
+{% block content %}
+<main class="transfer-main">
+  <div class="main-top">
+    <h1>
+      {% if instructor %}
+        Transferir Estudiantes de {{ instructor.first_name }} {{ instructor.last_name }}
+      {% else %}
+        Transferir Estudiantes
+      {% endif %}
+    </h1>
+  </div>
+
+  <form method="get" class="filter-form">
+    <div class="form-title">
+      <p>Filtrar por:</p>
+    </div>
+
+    <div class="form-body">
+      <div class="form-group">
+        <label for="source_instructor">Filtrar por Instructor:</label>
+        <select name="source_instructor" id="source_instructor" class="form-control">
+          <option value="">Todos los instructores</option>
+          <option value="none">Sin instructor asignado</option>
+          {% for inst in all_instructors %}
+          <option value="{{ inst.id }}" {% if instructor and instructor.id == inst.id %}selected{% endif %}>
+            {{ inst.first_name }} {{ inst.last_name }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="formation">Filtrar por Formación:</label>
+        <select name="formation" id="formation" class="form-control">
+          <option value="">Todas las formaciones</option>
+          {% for formation in formations %}
+          <option value="{{ formation.id }}" {% if request.GET.formation|add:"0" == formation.id %}selected{% endif %}>
+            {{ formation.code }} - {{ formation.name }}
+          </option>
+          {% endfor %} 
+        </select>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="btn btn-secondary">Aplicar Filtros</button>
+      </div>
+
+    </div>
+  </form>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Seleccionar</th>
+            <th>Nombre del Estudiante</th>
+            <th>Email</th>
+            <th>Documento</th>
+            <th>Formación</th>
+            <th>Instructor Actual</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students %}
+          <tr>
+            <td>
+              <input
+                type="checkbox"
+                name="selected_students"
+                value="{{ student.id }}"
+              />
+            </td>
+            <td>{{ student.name }} {{ student.last_name }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.document }}</td>
+            <td>{{ student.formation.code }} - {{ student.formation.name }}</td>
+            <td>
+              {% if student.instructor %}
+                {{ student.instructor.first_name }} {{ student.instructor.last_name }}
+              {% else %}
+                Sin asignar
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="form-group">
+      <label for="new_instructor">Selecciona el Instructor Destino:</label>
+      <select name="new_instructor" id="new_instructor" class="form-control" required>
+        <option value="" disabled selected>Selecciona un instructor</option>
+        {% for instructor in instructors %}
+        <option value="{{ instructor.id }}">
+          {{ instructor.first_name }} {{ instructor.last_name }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        Transferir Estudiantes
+      </button>
+    </div>
+  </form>
+
+  <div class="form-actions">
+    <a class="btn btn-primary" href="{% url 'user_list' %}" class="btn btn-secondary mt-3">
+      Volver a Lista de Instructores
+    </a>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends "base.html" %} {% block content %}
+<main class="student-details-main">
+  <div class="main-top">
+    <h1>Información de {{ student.name }} {{ student.last_name }}</h1>
+  </div>
+
+  <div class="description-card">
+    <dl class="inline-list">
+      <dt><strong>Documento:</strong></dt>
+      <dd>{{ student.document|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Tipo de Documento:</strong></dt>
+      <dd>{{ student.get_document_type_display|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Formación:</strong></dt>
+      <dd>{{ student.formation|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Email:</strong></dt>
+      <dd>{{ student.email|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Email SENA:</strong></dt>
+      <dd>{{ student.email_sena|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Teléfono:</strong></dt>
+      <dd>{{ student.cellphone|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Ciudad:</strong></dt>
+      <dd>{{ student.city|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Dirección:</strong></dt>
+      <dd>{{ student.address|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Barrio:</strong></dt>
+      <dd>{{ student.neighborhood|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Estado:</strong></dt>
+      <dd>{{ student.get_state_display|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Instructor de Seguimiento:</strong></dt>
+      <dd>{{ student.instructor|default_if_none:"N/A" }}</dd>
+    </dl>
+  </div>
+
+  {% if student.contract %}
+  <div class="description-card">
+    <h2>Información del Contrato</h2>
+    <dl class="inline-list">
+      <dt><strong>Tipo de Contrato:</strong></dt>
+      <dd>
+        {{ student.contract.get_contract_type_display|default_if_none:"N/A" }}
+      </dd>
+
+      <dt><strong>Fecha de Inicio:</strong></dt>
+      <dd>
+        {{student.contract.practices_start_date|date:"d/m/Y"|default_if_none:"N/A"}}
+      </dd>
+
+      <dt><strong>Fecha de Finalización:</strong></dt>
+      <dd>
+        {{student.contract.practices_end_date|date:"d/m/Y"|default_if_none:"N/A"}}
+      </dd>
+
+      <dt><strong>Empresa:</strong></dt>
+      <dd>{{ student.contract.enterprise_name|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Dirección de la Empresa:</strong></dt>
+      <dd>{{ student.contract.enterprise_address|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Región de la Empresa:</strong></dt>
+      <dd>{{ student.contract.enterprise_region|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Ciudad de la Empresa:</strong></dt>
+      <dd>{{ student.contract.enterprise_city|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Barrio de la Empresa:</strong></dt>
+      <dd>
+        {{ student.contract.enterprise_neighborhood|default_if_none:"N/A" }}
+      </dd>
+
+      <dt><strong>Teléfono de la Empresa:</strong></dt>
+      <dd>{{ student.contract.enterprise_phone|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Celular de la Empresa:</strong></dt>
+      <dd>{{ student.contract.enterprise_cellphone|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Email de la Empresa:</strong></dt>
+      <dd>{{ student.contract.enterprise_email|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>NIT de la Empresa:</strong></dt>
+      <dd>{{ student.contract.enterprise_nit|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Nombre del Jefe:</strong></dt>
+      <dd>{{ student.contract.boss_name|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>EPS del Estudiante:</strong></dt>
+      <dd>{{ student.contract.student_eps|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>ARL del Estudiante:</strong></dt>
+      <dd>{{ student.contract.student_arl|default_if_none:"N/A" }}</dd>
+    </dl>
+  </div>
+  {% endif %}
+
+  <div class="description-card">
+    <h2>Avances</h2>
+    <dl class="inline-list">
+      <dt><strong>Informe Parcial:</strong></dt>
+      <dd>{{ student.advancement.has_partial|yesno:"Sí,No" }}</dd>
+
+      <dt><strong>Informe Final:</strong></dt>
+      <dd>{{ student.advancement.has_final|yesno:"Sí,No" }}</dd>
+
+      <dt><strong>Concertación:</strong></dt>
+      <dd>{{ student.advancement.has_concertation|yesno:"Sí,No" }}</dd>
+
+      <dt><strong>Bitácora:</strong></dt>
+      <dd>{{ student.advancement.binnacle|default_if_none:"N/A" }}</dd>
+    </dl>
+  </div>
+
+  <div class="form-actions">
+    {% if "Administrador" in user_groups %}
+    <a href="{% url 'student_update' student.id %}" class="btn btn-primary"
+      >Modificar Datos Del Aprendiz</a
+    >
+    {% endif %} {% if student.state != "1" and student.state != "5" %}
+    <a
+      href="{% url 'student_advancement' student.id %}"
+      class="btn btn-secondary"
+    >
+      Avances
+    </a>
+    {% endif %} 
+    {% if student.state != "5" and "Administrador" in user_groups %}
+    <a href="{% url 'student_cancel' student.id %}" class="btn btn-danger"
+      >Cancelar Matrícula</a
+    >
+    {% endif %}
+  </div>
+
+  <div class="form-actions">
+    <a class="btn btn-primary" href="{% url 'student_list' %}">
+      Volver a la lista de aprendices
+    </a>
+  </div>
+</main>
+{% endblock %}

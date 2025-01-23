@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block content %}
+<main class="formation-create-main">
+  <div class="main-top">
+    <h1>Crear Formación</h1>
+  </div>
+
+  <form method="post">
+    <div class="form-body">
+      {% csrf_token %}
+      {% for field in form %}
+      <div class="form-field">
+        {{ field.label_tag }}
+        {{ field }}
+      </div>
+      {% if field.errors %}
+      <div class="form-error">
+        {{ field.errors }}
+      </div>
+      {% endif %}
+      {% endfor %}
+      <div>
+        <button type="submit">Guardar</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="form-actions">
+    <a class="btn btn-primary" href="{% url 'formation_list' %}">Volver a la lista de formaciones</a>
+  </div>
+</main>
+{% endblock %}

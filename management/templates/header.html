@@ -1,0 +1,23 @@
+{% load static %} {% block header %}
+
+<header>
+  <div id="logo-container">
+    <img
+      src="{% static 'img/logo_sena.png' %}"
+      alt="logo del Servicio Nacional De Aprendizaje - SENA"
+    />
+  </div>
+
+  <nav>
+    <ul>
+      <li>
+        <a href="{% url 'profile' %}"><img src="{% static 'img/profile_icon.png' %}" alt="proflie icon style fluent" />Perfil</a>
+      </li>
+      <li>
+        <a href="{% url 'logout' %}"><img src="{% static 'img/sign_out_icon.png' %}" alt="sign out icon style fluent" />Cerrar Sesión</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+{% endblock %}

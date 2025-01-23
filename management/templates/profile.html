@@ -1,0 +1,132 @@
+{% extends "base.html" %} {% block content %}
+<main class="profile-main">
+  <div class="main-top">
+    <h1>Perfil de Usuario</h1>
+  </div>
+
+  <div class="description-card">
+    <dl class="inline-list">
+      <dt><strong>Nombre:</strong></dt>
+      <dd>{{ user.first_name }} {{ user.last_name }}</dd>
+      <dt><strong>Email:</strong></dt>
+      <dd>{{ user.email }}</dd>
+      <dt><strong>Número de Teléfono:</strong></dt>
+      <dd>{{ user.cellphone|default_if_none:"" }}</dd>
+      <dt><strong>Roles:</strong></dt>
+      <dd>
+        {% for i in user.groups.all %}{{ i.name }}{% if not forloop.last %},
+        {%endif%} {% endfor %}
+      </dd>
+      <dt><strong>Estado:</strong></dt>
+      <dd>{{ user.is_active|yesno:"Activo,Inactivo" }}</dd>
+    </dl>
+  </div>
+
+  {% if "Instructor" in user_groups and own_profile or "administrador" in user_groups  %}
+  <div class="description-card">
+    <h2>Actualizar datos</h2>
+    <div class="form-actions">
+      <a href="{% url 'user_update' user.id %}" class="btn btn-primary"
+        >Actualizar Usuario</a
+      >
+      <a
+        href="{% url 'change_user_password' user.id %}"
+        class="btn btn-secondary"
+        >Cambiar Contraseña</a
+      >
+    </div>
+  </div>
+  {% endif %}
+
+  {% if "Administrador" in user_groups and not own_profile %}
+  <form method="post">
+    <h2>Gestionar Usuario</h2>
+    {% csrf_token %}
+    <div class="form-actions">
+      {% if user.is_active %}
+      <button
+        type="submit"
+        name="action"
+        value="deactivate"
+        class="btn btn-warning"
+      >
+        Desactivar Usuario
+      </button>
+      {% else %}
+      <button
+        type="submit"
+        name="action"
+        value="activate"
+        class="btn btn-success"
+      >
+        Activar Usuario
+      </button>
+      {% endif %}
+      <button type="button" class="btn btn-danger" onclick="confirmDelete()">
+        Eliminar Usuario
+      </button>
+    </div>
+  </form>
+  {% endif %}
+
+  {% if is_instructor %}
+  <div class="description-card">
+    <h2>Aprendices a Cargo ({{ students_count }})</h2>
+    <ul>
+      {% for student in students %}
+      <li>
+        <a href="{% url 'student_detail' student.pk %}">
+          {{ student.name }} {{ student.last_name }} - {{ student.document }} -
+          {{ student.state_display }} - {{ student.formation }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="pagination">
+      <span class="step-links">
+        {% if students.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ students.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+          Page {{ students.number }} of {{ students.paginator.num_pages }}.
+        </span>
+
+        {% if students.has_next %}
+        <a href="?page={{ students.next_page_number }}">next</a>
+        <a href="?page={{ students.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
+  </div>
+
+  <script>
+    function confirmDelete() {
+      if (
+        confirm(
+          "¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede revertir."
+        )
+      ) {
+        const form = document.createElement("form");
+        form.method = "post";
+        form.action = "";
+        const csrfToken = document.createElement("input");
+        csrfToken.type = "hidden";
+        csrfToken.name = "csrfmiddlewaretoken";
+        csrfToken.value = "{{ csrf_token }}";
+        form.appendChild(csrfToken);
+        const actionInput = document.createElement("input");
+        actionInput.type = "hidden";
+        actionInput.name = "action";
+        actionInput.value = "delete";
+        form.appendChild(actionInput);
+        document.body.appendChild(form);
+        form.submit();
+      }
+    }
+  </script>
+  {% endif %}
+</main>
+{% endblock %}

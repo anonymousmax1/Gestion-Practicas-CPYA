@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block content %}
+<main class="student-cancel-main">
+  <div class="main-top">
+    <h1>Cancelar Matrícula: {{ student.name }} {{ student.last_name }}</h1>
+  </div>
+
+  <div class="description-card">
+    <dl class="inline-list">
+      <dt><strong>Documento:</strong></dt>
+      <dd>{{ student.document|default_if_none:"N/A" }}</dd>
+      <dt><strong>Formación:</strong></dt>
+      <dd>{{ student.formation|default_if_none:"N/A" }}</dd>
+      <dt><strong>Email:</strong></dt>
+      <dd>{{ student.email|default_if_none:"N/A" }}</dd>
+      <dt><strong>Teléfono:</strong></dt>
+      <dd>{{ student.cellphone|default_if_none:"N/A" }}</dd>
+    </dl>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-body">
+      <div class="form-field">
+        <label> Confirmo que deseo cancelar la matrícula de este aprendiz. </label>
+        <input type="checkbox" name="confirm_cancel" required="true" />
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-danger">Cancelar Matrícula</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="form-actions">
+    <a class="btn btn-primary" href="{% url 'student_detail' student.pk %}">Volver a detalles del aprendiz</a>
+  </div>
+</main>
+{% endblock %}

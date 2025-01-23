@@ -1,0 +1,75 @@
+{% extends "base.html" %} {% block content %}
+<main class="formation-details-main">
+  <div class="main-top">
+    <h1>{{ formation.code }} - {{ formation.name }}</h1>
+  </div>
+
+  <div class="description-card">
+    <dl class="inline-list">
+      <dt><strong>Fecha de Inicio:</strong></dt>
+      <dd>{{ formation.start_date|date:"d/m/Y" }}</dd>
+      <dt><strong>Fecha de Finalización:</strong></dt>
+      <dd>{{ formation.end_date|date:"d/m/Y" }}</dd>
+      <dt><strong>Total de Aprendices:</strong></dt>
+      <dd>{{ total_students }}</dd>
+    </dl>
+  </div>
+
+  <div class="description-card">
+    <h2>Estadísticas de Estudiantes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Estado</th>
+          <th>Cantidad</th>
+          <th>Porcentaje</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for stat in state_stats %}
+        <tr>
+          <td>{{ stat.state }}</td>
+          <td>{{ stat.count }}</td>
+          <td>{{ stat.percentage|floatformat:2 }}%</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="description-card">
+    <h2>Aprendices Inscritos</h2>
+    {% if students %}
+    <ul>
+      {% for student in students %}
+      <li>
+        <a href="{% url 'student_detail' student.pk %}">
+          {{ student.name }} {{ student.last_name }} - {{ student.document }} -
+          {{ student.state_display }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No hay estudiantes inscritos.</p>
+    {% endif %}
+  </div>
+
+  <div class="form-actions">
+    {% if 'Administrador' in user_groups %}
+    <a href="{% url 'formation_update' formation.id %}" class="btn btn-primary"
+      >Editar Formación</a
+    >
+    <a href="{% url 'formation_delete' formation.id %}" class="btn btn-danger"
+      >Eliminar Formación</a
+    >
+    {% endif %}
+  </div>
+
+  <div class="form-actions">
+    <a class="btn btn-primary" href="{% url 'formation_list' %}"
+      >Volver a la lista de formaciones</a
+    >
+  </div>
+</main>
+{% endblock %}

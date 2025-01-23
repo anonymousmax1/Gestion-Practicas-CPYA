@@ -1,0 +1,22 @@
+{% load static %} {% block aside %}
+
+<aside>
+  <nav>
+    <ul>
+      <li><a href="{% url 'student_list' %}">Listado de aprendices</a></li>
+      <li><a href="{% url 'formation_list' %}">Lista de formaciones</a></li>
+      {% if "Administrador" in user_groups %}
+      <li><a href="{% url 'load_formation' %}">Cargar Formación</a></li>
+      <li><a href="{% url 'load_contract_file' %}">Cargar Contrato</a></li>
+      {% endif %}
+      <li><a href="{% url 'dashboard' %}">Estadísticas</a></li>
+      <li><a href="{% url 'user_list' %}">Lista de usuarios</a></li>
+
+      {% if "Administrador" in user_groups %}
+      <li><a href="{% url 'transfer_students' %}">Transferir aprendices</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+</aside>
+
+{% endblock %}

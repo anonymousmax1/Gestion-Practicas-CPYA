@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block content %}
+<main class="student-advancements-main">
+  <div class="main-top">
+    <h1>Avances de {{ student.name }} {{ student.last_name }}</h1>
+  </div>
+
+  <form method="post">
+    <div class="form-body">
+      {% csrf_token %} {% for field in form %}
+      <div class="form-field">{{ field.label_tag }} {{ field }}</div>
+      {% if field.errors %}
+      <div class="form-error">{{ field.errors }}</div>
+      {% endif %} {% endfor %}
+      <div class="form-actions">
+        <button type="submit" name="action" value="update">Guardar Avances</button>
+      </div>
+    </div>
+  </form>
+
+  <form method="post">
+    <h3>Evaluar etapa práctica</h3>
+    <div class="form-body">
+      {% csrf_token %}
+      <div class="form-actions">
+        <button type="submit" name="action" value="set_to_evaluated">
+          Marcar como aprobado
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div class="form-actions">
+    <a class="btn btn-primary" href="{% url 'student_detail' student.id %}">
+      Volver a detalles del aprendiz
+    </a>
+  </div>
+</main>
+{% endblock %}

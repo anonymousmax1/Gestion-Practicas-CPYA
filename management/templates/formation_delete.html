@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% block content %}
+<main class="formation-delete-main">
+  <div class="main-top">
+    <h1>Eliminar Formación: {{ formation.name }}</h1>
+  </div>
+
+  <div class="description-card">
+    <dl class="inline-list">
+      <dt><strong>Ficha:</strong></dt>
+      <dd>{{ formation.code }}</dd>
+      <dt><strong>Fecha de Inicio:</strong></dt>
+      <dd>{{ formation.start_date|date:"d/m/Y" }}</dd>
+      <dt><strong>Fecha de Finalización:</strong></dt>
+      <dd>{{ formation.end_date|date:"d/m/Y" }}</dd>
+      <dt><strong>Total de Aprendices:</strong></dt>
+      <dd>{{ total_students }}</dd>
+    </dl>
+  </div>
+  <div class="description-card">
+    <h2>Estadísticas de los Aprendices</h2>
+    {% if state_stats %}
+    <table>
+      <thead>
+        <tr>
+          <th>Estado</th>
+          <th>Cantidad</th>
+          <th>Porcentaje</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for stat in state_stats %}
+        <tr>
+          <td>{{ stat.state }}</td>
+          <td>{{ stat.count }}</td>
+          <td>{{ stat.percentage|floatformat:2 }}%</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No hay estudiantes registrados en esta formación.</p>
+    {% endif %}
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-body">
+      <div class="form-field">
+        <label> Confirmo que deseo eliminar esta formación. </label>
+        <input type="checkbox" name="confirm_delete" required="true" />
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-danger">Eliminar Formación</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="form-actions">
+    <a class="btn btn-primary" href="{% url 'formation_detail' formation.pk %}">
+      Retroceder a detalles de la formación
+    </a>
+  </div>
+</main>
+{% endblock %}
