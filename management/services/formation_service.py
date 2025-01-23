@@ -11,8 +11,8 @@ def save_formation(formation: Formation) -> Formation:
 def formation_converter(
     code: str,
     name: str,
-    start_date: datetime.date | None,
-    end_date: datetime.date | None,
+    start_date: datetime.date,
+    end_date: datetime.date,
 ) -> Formation:
     formation = Formation()
     formation.name = name
