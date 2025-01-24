@@ -7,7 +7,11 @@ from management.services.formation_service import get_formation_stats
 class FormationDetailView(LoginRequiredMixin, View):
     def get(self, request, pk):
         formation = get_object_or_404(Formation, pk=pk)
-        students = Student.objects.filter(formation=formation)
+
+        if request.user.groups.filter(name="Instructor").exists() and not request.user.groups.filter(name="Administrador").exists():
+            students = Student.objects.filter(formation=formation, instructor=request.user)
+        else:
+            students = Student.objects.filter(formation=formation)
 
         state_stats, total_students = get_formation_stats(formation)
 

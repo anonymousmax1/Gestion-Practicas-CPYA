@@ -16,7 +16,7 @@
   </div>
 
   <div class="description-card">
-    <h2>Estadísticas de Estudiantes</h2>
+    <h2>Estadísticas de Aprendices</h2>
     <table>
       <thead>
         <tr>
@@ -38,8 +38,11 @@
   </div>
 
   <div class="description-card">
+    {% if "Instructor" in user_groups and "Administrador not in user_groups" %}
+    <h2>Aprendices a Cargo</h2>
+    {% else %}
     <h2>Aprendices Inscritos</h2>
-    {% if students %}
+    {% endif %} {% if students %}
     <ul>
       {% for student in students %}
       <li>
@@ -51,20 +54,20 @@
       {% endfor %}
     </ul>
     {% else %}
-    <p>No hay estudiantes inscritos.</p>
+    <p>No hay aprendices inscritos.</p>
     {% endif %}
   </div>
 
+  {% if 'Administrador' in user_groups %}
   <div class="form-actions">
-    {% if 'Administrador' in user_groups %}
     <a href="{% url 'formation_update' formation.id %}" class="btn btn-primary"
       >Editar Formación</a
     >
     <a href="{% url 'formation_delete' formation.id %}" class="btn btn-danger"
       >Eliminar Formación</a
     >
-    {% endif %}
   </div>
+  {% endif %}
 
   <div class="form-actions">
     <a class="btn btn-primary" href="{% url 'formation_list' %}"

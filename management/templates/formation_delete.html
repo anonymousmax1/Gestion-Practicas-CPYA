@@ -38,7 +38,7 @@
       </tbody>
     </table>
     {% else %}
-    <p>No hay estudiantes registrados en esta formación.</p>
+    <p>No hay aprendices registrados en esta formación.</p>
     {% endif %}
   </div>
 
@@ -46,8 +46,15 @@
     {% csrf_token %}
     <div class="form-body">
       <div class="form-field">
-        <label> Confirmo que deseo eliminar esta formación. </label>
-        <input type="checkbox" name="confirm_delete" required="true" />
+        <label for="confirm_delete">
+          Confirmo que deseo eliminar esta formación.</label
+        >
+        <input
+          type="checkbox"
+          id="confirm_delete"
+          name="confirm_delete"
+          required="true"
+        />
       </div>
       <div class="form-actions">
         <button type="submit" class="btn btn-danger">Eliminar Formación</button>

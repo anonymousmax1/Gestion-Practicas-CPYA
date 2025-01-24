@@ -92,10 +92,10 @@
       <dt><strong>Nombre del Jefe:</strong></dt>
       <dd>{{ student.contract.boss_name|default_if_none:"N/A" }}</dd>
 
-      <dt><strong>EPS del Estudiante:</strong></dt>
+      <dt><strong>EPS del Aprendiz:</strong></dt>
       <dd>{{ student.contract.student_eps|default_if_none:"N/A" }}</dd>
 
-      <dt><strong>ARL del Estudiante:</strong></dt>
+      <dt><strong>ARL del Aprendiz:</strong></dt>
       <dd>{{ student.contract.student_arl|default_if_none:"N/A" }}</dd>
     </dl>
   </div>
@@ -104,17 +104,17 @@
   <div class="description-card">
     <h2>Avances</h2>
     <dl class="inline-list">
+      <dt><strong>Bitácoras:</strong></dt>
+      <dd>{{ student.advancement.binnacle|default_if_none:"N/A" }}</dd>
+
+      <dt><strong>Concertación:</strong></dt>
+      <dd>{{ student.advancement.has_concertation|yesno:"Sí,No" }}</dd>
+
       <dt><strong>Informe Parcial:</strong></dt>
       <dd>{{ student.advancement.has_partial|yesno:"Sí,No" }}</dd>
 
       <dt><strong>Informe Final:</strong></dt>
       <dd>{{ student.advancement.has_final|yesno:"Sí,No" }}</dd>
-
-      <dt><strong>Concertación:</strong></dt>
-      <dd>{{ student.advancement.has_concertation|yesno:"Sí,No" }}</dd>
-
-      <dt><strong>Bitácora:</strong></dt>
-      <dd>{{ student.advancement.binnacle|default_if_none:"N/A" }}</dd>
     </dl>
   </div>
 
@@ -128,7 +128,7 @@
       href="{% url 'student_advancement' student.id %}"
       class="btn btn-secondary"
     >
-      Avances
+      Modificar Avances
     </a>
     {% endif %} 
     {% if student.state != "5" and "Administrador" in user_groups %}

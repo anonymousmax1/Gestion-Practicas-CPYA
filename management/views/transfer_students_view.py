@@ -43,7 +43,7 @@ class TransferStudentsView(GroupRequiredMixin, View):
         new_instructor_id = request.POST.get('new_instructor')
 
         if not selected_students:
-            messages.error(request, "No has seleccionado ningún estudiante.")
+            messages.error(request, "No has seleccionado ningún aprendiz.")
             return redirect('transfer_students')
 
         if not new_instructor_id:
@@ -55,10 +55,10 @@ class TransferStudentsView(GroupRequiredMixin, View):
         for student_id in selected_students:
             student = get_object_or_404(Student, pk=student_id)
             if student.state not in [StateValues.IN_TRACKING.value, StateValues.NO_TRACKING.value]:
-                messages.error(request, f"El estudiante {student.name} {student.last_name} no está en un estado transferible.")
+                messages.error(request, f"El aprendiz {student.name} {student.last_name} no está en un estado transferible.")
                 continue
             student.instructor = new_instructor
             student.save()
 
-        messages.success(request, "Los estudiantes han sido transferidos exitosamente.")
+        messages.success(request, "Los aprendices han sido transferidos exitosamente.")
         return redirect('transfer_students')

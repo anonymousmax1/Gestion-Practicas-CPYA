@@ -4,9 +4,9 @@
   <div class="main-top">
     <h1>
       {% if instructor %}
-        Transferir Estudiantes de {{ instructor.first_name }} {{ instructor.last_name }}
+        Transferir Aprendices de {{ instructor.first_name }} {{ instructor.last_name }}
       {% else %}
-        Transferir Estudiantes
+        Transferir Aprendices
       {% endif %}
     </h1>
   </div>
@@ -56,7 +56,7 @@
         <thead>
           <tr>
             <th>Seleccionar</th>
-            <th>Nombre del Estudiante</th>
+            <th>Nombre del Aprendiz</th>
             <th>Email</th>
             <th>Documento</th>
             <th>Formación</th>
@@ -103,7 +103,7 @@
     </div>
     <div class="form-actions">
       <button type="submit" class="btn btn-primary">
-        Transferir Estudiantes
+        Transferir Aprendices
       </button>
     </div>
   </form>

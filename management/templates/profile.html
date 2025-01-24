@@ -36,9 +36,7 @@
       >
     </div>
   </div>
-  {% endif %}
-
-  {% if "Administrador" in user_groups and not own_profile %}
+  {% endif %} {% if "Administrador" in user_groups and not own_profile %}
   <form method="post">
     <h2>Gestionar Usuario</h2>
     {% csrf_token %}
@@ -67,9 +65,7 @@
       </button>
     </div>
   </form>
-  {% endif %}
-
-  {% if is_instructor %}
+  {% endif %} {% if is_instructor %}
   <div class="description-card">
     <h2>Aprendices a Cargo ({{ students_count }})</h2>
     <ul>

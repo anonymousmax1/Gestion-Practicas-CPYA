@@ -75,7 +75,7 @@ class ContractService:
     def update_student_state(self, student: Student):
         if student.state in [StateValues.EVALUATED.value, StateValues.CANCELED.value]:
             raise ValidationError(
-                "No se puede crear contrato para estudiantes con estado Evaluado o Cancelado."
+                "No se puede crear contrato para aprendices con estado Evaluado o Cancelado."
             )
 
         student.state = StateValues.IN_TRACKING.value if student.instructor else StateValues.NO_TRACKING.value
@@ -85,5 +85,5 @@ class ContractService:
             return Student.objects.get(document=data["student_document_number"])
         except ObjectDoesNotExist:
             raise ValidationError(
-                f"No se encontró un estudiante con el número de documento {data['student_document_number']}."
+                f"No se encontró un aprendices con el número de documento {data['student_document_number']}."
             )

@@ -14,6 +14,9 @@ class FormationListView(LoginRequiredMixin, ListView):
         queryset = Formation.objects.all().order_by("name")
         form = FilterFormationsListForm(self.request.GET)
 
+        if self.request.user.groups.filter(name="Instructor").exists() and not self.request.user.groups.filter(name="Administrador").exists():
+            queryset = queryset.filter(student__instructor=self.request.user)
+
         if form.is_valid():
             search = form.cleaned_data.get("search")
 

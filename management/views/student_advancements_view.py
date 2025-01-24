@@ -26,7 +26,7 @@ class StudentAdvancementView(GroupRequiredMixin, View):
         except Student.DoesNotExist:
             messages.error(
                 request,
-                "El estudiante no existe o no está en un estado válido para ver los avances.",
+                "El aprendiz no existe o no está en un estado válido para ver los avances.",
             )
             return redirect("student_detail", pk=pk)
 
@@ -49,14 +49,14 @@ class StudentAdvancementView(GroupRequiredMixin, View):
         except Student.DoesNotExist:
             messages.error(
                 request,
-                "El estudiante no existe o no está en un estado válido para ver los avances.",
+                "El aprendiz no existe o no está en un estado válido para ver los avances.",
             )
             return redirect("student_detail", pk=pk)
 
         if action == "set_to_evaluated":
             student.state = StateValues.EVALUATED.value
             student.save()
-            messages.success(request, "El estudiante ha sido marcado como evaluado.")
+            messages.success(request, "El aprendiz ha sido marcado como evaluado.")
             return redirect("student_detail", pk=pk)
 
         advancement, created = Advancement.objects.get_or_create(student=student)
@@ -64,7 +64,7 @@ class StudentAdvancementView(GroupRequiredMixin, View):
 
         if form.is_valid():
             form.save()
-            messages.success(request, "Los avances del estudiante han sido actualizados.")
+            messages.success(request, "Los avances del aprendiz han sido actualizados.")
             return redirect("student_detail", pk=pk)
         else:
             messages.error(request, "Por favor corrige los errores a continuación.")
