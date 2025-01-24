@@ -60,7 +60,7 @@ class Student(models.Model):
     )
     name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    email = models.EmailField(unique=True, max_length=100)
+    email = models.EmailField(unique=False, max_length=100)
     email_sena = models.EmailField(blank=True, null=True, max_length=100)
     cellphone = models.CharField(blank=True, null=True, max_length=100)
     city = models.CharField(blank=True, null=True, max_length=100)

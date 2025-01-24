@@ -13,6 +13,10 @@ class StudentListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = Student.objects.all().order_by('formation__name', 'name')
+
+        if self.request.user.groups.filter(name="Instructor").exists() and not self.request.user.groups.filter(name="Administrador").exists():
+            queryset = queryset.filter(instructor=self.request.user)
+
         form = FilterStudentsListForm(self.request.GET)
 
         if form.is_valid():
